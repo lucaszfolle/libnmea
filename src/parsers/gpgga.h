@@ -3,35 +3,40 @@
 
 #include <stdlib.h>
 #include <string.h>
-#include <time.h>
 #include <nmea.h>
 
-typedef struct {
+typedef struct
+{
 	nmea_s base;
-	struct tm time;
-	nmea_position longitude;
-	nmea_position latitude;
-	int n_satellites;
-	double altitude;
+	nmea_time_date_t time;
+	double latitude;
+	double longitude;
+	float altitude;
+	float undulation;
+	float hdop;
+	uint8_t n_satellites;
 	char altitude_unit;
-	double undulation;
 	char undulation_unit;
-	unsigned char position_fix;
+	uint8_t position_fix;
 } nmea_gpgga_s;
 
 /* Value indexes */
-#define NMEA_GPGGA_TIME			0
-#define NMEA_GPGGA_LATITUDE		1
-#define NMEA_GPGGA_LATITUDE_CARDINAL	2
-#define NMEA_GPGGA_LONGITUDE		3
-#define NMEA_GPGGA_LONGITUDE_CARDINAL	4
-#define NMEA_GPGGA_POSITION_FIX		5
-#define NMEA_GPGGA_N_SATELLITES		6
-#define NMEA_GPGGA_ALTITUDE		8
-#define NMEA_GPGGA_ALTITUDE_UNIT	9
-#define NMEA_GPGGA_UNDULATION		10
-#define NMEA_GPGGA_UNDULATION_UNIT	11
+enum
+{
+	NMEA_GPGGA_TIME = 0,
+	NMEA_GPGGA_LATITUDE,
+	NMEA_GPGGA_LATITUDE_CARDINAL,
+	NMEA_GPGGA_LONGITUDE,
+	NMEA_GPGGA_LONGITUDE_CARDINAL,
+	NMEA_GPGGA_POSITION_FIX,
+	NMEA_GPGGA_N_SATELLITES,
+	NMEA_GPGGA_HDOP,
+	NMEA_GPGGA_ALTITUDE,
+	NMEA_GPGGA_ALTITUDE_UNIT,
+	NMEA_GPGGA_UNDULATION,
+	NMEA_GPGGA_UNDULATION_UNIT
+};
 
 #define INVALID_UNDULATION -9999.999
 
-#endif  /* INC_NMEA_GPGGA_H */
+#endif /* INC_NMEA_GPGGA_H */
