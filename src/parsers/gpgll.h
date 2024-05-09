@@ -3,21 +3,24 @@
 
 #include <stdlib.h>
 #include <string.h>
-#include <time.h>
 #include <nmea.h>
 
-typedef struct {
+typedef struct
+{
 	nmea_s base;
-	nmea_position longitude;
-	nmea_position latitude;
-	struct tm time;
+	double longitude;
+	double latitude;
+	nmea_time_date_t time;
 } nmea_gpgll_s;
 
 /* Value indexes */
-#define NMEA_GPGLL_LATITUDE		0
-#define NMEA_GPGLL_LATITUDE_CARDINAL	1
-#define NMEA_GPGLL_LONGITUDE		2
-#define NMEA_GPGLL_LONGITUDE_CARDINAL	3
-#define NMEA_GPGLL_TIME			4
+enum
+{
+	NMEA_GPGLL_LATITUDE = 0,
+	NMEA_GPGLL_LATITUDE_CARDINAL,
+	NMEA_GPGLL_LONGITUDE,
+	NMEA_GPGLL_LONGITUDE_CARDINAL,
+	NMEA_GPGLL_TIME
+};
 
-#endif  /* INC_NMEA_GPGLL_H */
+#endif /* INC_NMEA_GPGLL_H */
