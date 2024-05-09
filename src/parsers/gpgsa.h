@@ -3,47 +3,41 @@
 
 #include <stdlib.h>
 #include <string.h>
-#include <time.h>
 #include <nmea.h>
 
-typedef struct {
+#define NMEA_GPGSA_MAX_SATS (12)
+
+typedef struct
+{
 	nmea_s base;
-	char mode; /* M = manual (forced 2D or 3D), A = automatic */
+	char mode;	  /* M = manual (forced 2D or 3D), A = automatic */
 	char fixtype; /* 1 = no fix, 2 = 2D, 3 = 3D */
-	int satID_00;
-	int satID_01;
-	int satID_02;
-	int satID_03;
-	int satID_04;
-	int satID_05;
-	int satID_06;
-	int satID_07;
-	int satID_08;
-	int satID_09;
-	int satID_10;
-	int satID_11;
-	double pdop;
-	double hdop;
-	double vdop;
+	int8_t satID[NMEA_GPGSA_MAX_SATS];
+	float pdop;
+	float hdop;
+	float vdop;
 } nmea_gpgsa_s;
 
 /* Value indexes */
-#define NMEA_GPGSA_MODE 0
-#define NMEA_GPGSA_FIXTYPE 1
-#define NMEA_GPGSA_SATID_00 2
-#define NMEA_GPGSA_SATID_01 3
-#define NMEA_GPGSA_SATID_02 4
-#define NMEA_GPGSA_SATID_03 5
-#define NMEA_GPGSA_SATID_04 6
-#define NMEA_GPGSA_SATID_05 7
-#define NMEA_GPGSA_SATID_06 8
-#define NMEA_GPGSA_SATID_07 9
-#define NMEA_GPGSA_SATID_08 10
-#define NMEA_GPGSA_SATID_09 11
-#define NMEA_GPGSA_SATID_10 12
-#define NMEA_GPGSA_SATID_11 13
-#define NMEA_GPGSA_PDOP 14
-#define NMEA_GPGSA_HDOP 15
-#define NMEA_GPGSA_VDOP 16
+enum
+{
+	NMEA_GPGSA_MODE = 0,
+	NMEA_GPGSA_FIXTYPE,
+	NMEA_GPGSA_SATID_00,
+	NMEA_GPGSA_SATID_01,
+	NMEA_GPGSA_SATID_02,
+	NMEA_GPGSA_SATID_03,
+	NMEA_GPGSA_SATID_04,
+	NMEA_GPGSA_SATID_05,
+	NMEA_GPGSA_SATID_06,
+	NMEA_GPGSA_SATID_07,
+	NMEA_GPGSA_SATID_08,
+	NMEA_GPGSA_SATID_09,
+	NMEA_GPGSA_SATID_10,
+	NMEA_GPGSA_SATID_11,
+	NMEA_GPGSA_PDOP,
+	NMEA_GPGSA_HDOP,
+	NMEA_GPGSA_VDOP
+};
 
-#endif  /* INC_NMEA_GPGSA_H */
+#endif /* INC_NMEA_GPGSA_H */
