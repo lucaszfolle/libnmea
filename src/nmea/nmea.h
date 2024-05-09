@@ -35,12 +35,17 @@ typedef struct {
 	int errors;
 } nmea_s;
 
-/* GPS position struct */
-typedef struct {
-	double minutes;
-	int degrees;
-	nmea_cardinal_t cardinal;
-} nmea_position;
+/* NMEA time and date struct */
+typedef struct
+{
+	uint8_t year;	/* 0 = 2000 */
+	uint8_t month; 	/* 1 - 12 */
+	uint8_t day;	/* 1 - 31 */
+	uint8_t hour;	/* 0 - 23 */
+	uint8_t minute; /* 0 - 59 */
+	uint8_t second; /* 0 - 59 */
+	uint16_t millisecond; /* 0 - 999 */
+} nmea_time_date_t;
 
 /* NMEA sentence max length, including \r\n (chars) */
 #define NMEA_MAX_LENGTH		82
