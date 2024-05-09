@@ -2,8 +2,7 @@
 #include "gpgsv.h"
 #include "parse.h"
 
-int
-init(nmea_parser_s *parser)
+int init(nmea_parser_s *parser)
 {
 	/* Declare what sentence type to parse */
 	NMEA_PARSER_TYPE(parser, NMEA_GPGSV);
@@ -11,42 +10,40 @@ init(nmea_parser_s *parser)
 	return 0;
 }
 
-int
-allocate_data(nmea_parser_s *parser)
+int allocate_data(nmea_parser_s *parser)
 {
-	parser->data = malloc(sizeof (nmea_gpgsv_s));
-	if (NULL == parser->data) {
+	parser->data = malloc(sizeof(nmea_gpgsv_s));
+	if (NULL == parser->data)
+	{
 		return -1;
 	}
 
 	return 0;
 }
 
-int
-set_default(nmea_parser_s *parser)
+int set_default(nmea_parser_s *parser)
 {
-	memset(parser->data, 0, sizeof (nmea_gpgsv_s));
-	((nmea_gpgsv_s *) parser->data)->sat[0].prn = -1;
-	((nmea_gpgsv_s *) parser->data)->sat[1].prn = -1;
-	((nmea_gpgsv_s *) parser->data)->sat[2].prn = -1;
-	((nmea_gpgsv_s *) parser->data)->sat[3].prn = -1;
+	memset(parser->data, 0, sizeof(nmea_gpgsv_s));
+	((nmea_gpgsv_s *)parser->data)->sat[0].prn = -1;
+	((nmea_gpgsv_s *)parser->data)->sat[1].prn = -1;
+	((nmea_gpgsv_s *)parser->data)->sat[2].prn = -1;
+	((nmea_gpgsv_s *)parser->data)->sat[3].prn = -1;
 
 	return 0;
 }
 
-int
-free_data(nmea_s *data)
+int free_data(nmea_s *data)
 {
 	free(data);
 	return 0;
 }
 
-int
-parse(nmea_parser_s *parser, char *value, int val_index)
+int parse(nmea_parser_s *parser, char *value, int val_index)
 {
-	nmea_gpgsv_s *data = (nmea_gpgsv_s *) parser->data;
+	nmea_gpgsv_s *data = (nmea_gpgsv_s *)parser->data;
 
-	switch (val_index) {
+	switch (val_index)
+	{
 	case NMEA_GPGSV_SENTENCES:
 		/* Parse sentences */
 		data->sentences = atoi(value);
