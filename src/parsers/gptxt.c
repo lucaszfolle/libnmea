@@ -2,8 +2,7 @@
 #include "gptxt.h"
 #include "parse.h"
 
-int
-init(nmea_parser_s *parser)
+int init(nmea_parser_s *parser)
 {
 	/* Declare what sentence type to parse */
 	NMEA_PARSER_TYPE(parser, NMEA_GPTXT);
@@ -11,55 +10,43 @@ init(nmea_parser_s *parser)
 	return 0;
 }
 
-int
-allocate_data(nmea_parser_s *parser)
+int allocate_data(nmea_parser_s *parser)
 {
-	parser->data = malloc(sizeof (nmea_gptxt_s));
-	if (NULL == parser->data) {
+	parser->data = malloc(sizeof(nmea_gptxt_s));
+	if (NULL == parser->data)
+	{
 		return -1;
 	}
 
 	return 0;
 }
 
-int
-set_default(nmea_parser_s *parser)
+int set_default(nmea_parser_s *parser)
 {
-	memset(parser->data, 0, sizeof (nmea_gptxt_s));
+	memset(parser->data, 0, sizeof(nmea_gptxt_s));
 	return 0;
 }
 
-int
-free_data(nmea_s *data)
+int free_data(nmea_s *data)
 {
 	free(data);
 	return 0;
 }
 
-int
-parse(nmea_parser_s *parser, char *value, int val_index)
+int parse(nmea_parser_s *parser, char *value, int val_index)
 {
-	nmea_gptxt_s *data = (nmea_gptxt_s *) parser->data;
+	nmea_gptxt_s *data = (nmea_gptxt_s *)parser->data;
 
 	memset(data->text, 0, NMEA_GPTXT_TEXT_SIZE);
 
-	switch (val_index) {
-	case NMEA_GPTXT_ID00:
-		data->id_00 = strtol(value, NULL, 10);
-		break;
-	case NMEA_GPTXT_ID01:
-		data->id_01 = strtol(value, NULL, 10);
-		break;
-	case NMEA_GPTXT_ID02:
-		data->id_02 = strtol(value, NULL, 10);
-		break;
-	case NMEA_GPTXT_TEXT:
+	if ((val_index >= NMEA_GPTXT_ID00) && (val_index <= NMEA_GPTXT_ID02))
+	{
+		data->id[val_index - NMEA_GPTXT_ID00] = strtol(value, NULL, 10);
+	}
+	else if (val_index == NMEA_GPTXT_TEXT)
+	{
 		strncpy(data->text, value, NMEA_GPTXT_TEXT_SIZE);
 		data->text[NMEA_GPTXT_TEXT_SIZE - 1] = '\0';
-		break;
-	default:
-		break;
 	}
-
 	return 0;
 }

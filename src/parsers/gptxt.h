@@ -3,23 +3,26 @@
 
 #include <stdlib.h>
 #include <string.h>
-#include <time.h>
 #include <nmea.h>
 
 /* Value indexes */
-#define NMEA_GPTXT_ID00 0
-#define NMEA_GPTXT_ID01 1
-#define NMEA_GPTXT_ID02 2
-#define NMEA_GPTXT_TEXT 3
+enum
+{
+	NMEA_GPTXT_ID00,
+	NMEA_GPTXT_ID01,
+	NMEA_GPTXT_ID02,
+	NMEA_GPTXT_TEXT
+};
 /* Text field length */
 #define NMEA_GPTXT_TEXT_SIZE 64
+/* Number of ID fields */
+#define NMEA_GPTXT_ID_FIELDS (3)
 
-typedef struct {
+typedef struct
+{
 	nmea_s base;
-	int id_00;
-	int id_01;
-	int id_02;
+	int id[NMEA_GPTXT_ID_FIELDS];
 	char text[NMEA_GPTXT_TEXT_SIZE];
 } nmea_gptxt_s;
 
-#endif  /* INC_NMEA_GPTXT_H */
+#endif /* INC_NMEA_GPTXT_H */

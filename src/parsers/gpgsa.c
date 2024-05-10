@@ -69,7 +69,7 @@ int parse(nmea_parser_s *parser, char *value, int val_index)
 	}
 
 	/* Treats the satellites IDs */
-	if ((val_index >= NMEA_GPGSA_SATID_00) || (val_index <= NMEA_GPGSA_SATID_11))
+	if ((val_index >= NMEA_GPGSA_SATID_00) && (val_index <= NMEA_GPGSA_SATID_11))
 	{
 		data->satID[val_index - NMEA_GPGSA_SATID_00] = strtol(value, NULL, 10);
 	}
