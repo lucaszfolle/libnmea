@@ -49,18 +49,18 @@ int parse(nmea_parser_s *parser, char *value, int val_index)
 		break;
 
 	case NMEA_GPZDA_DAY:
-		data->date_time->day = atoi(value);
+		data->date_time.day = atoi(value);
 		break;
 
 	case NMEA_GPZDA_MONTH:
-		data->date_time->month = atoi(value);
+		data->date_time.month = atoi(value);
 		break;
 
 	case NMEA_GPZDA_YEAR:
 		tmp = atoi(value);
 		if (tmp < 2000)
 			return -1;
-		data->date_time->year = tmp - 2000;
+		data->date_time.year = tmp - 2000;
 		break;
 
 	default:

@@ -70,7 +70,10 @@ int nmea_time_parse(char *s, nmea_time_date_t *time)
 	if (*rv == '.')
 	{
 		rv++;
-		time->millisecond = atoi(rv) * 10;
+		time->millisecond = atoi(rv);
+		int len = strlen(rv);
+		while (len++ < 3)
+			time->millisecond *= 10;
 		rv += 2;
 	}
 	if ((time->hour > 23) || (time->minute > 59) || (time->second > 59) || (time->millisecond > 999) || ((int)(rv - s) < NMEA_TIME_FORMAT_LEN))
