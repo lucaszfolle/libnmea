@@ -11,6 +11,7 @@ typedef struct
 	double longitude;
 	double latitude;
 	nmea_time_date_t time;
+	bool valid;
 } nmea_gpgll_s;
 
 /* Value indexes */
@@ -20,7 +21,8 @@ enum
 	NMEA_GPGLL_LATITUDE_CARDINAL,
 	NMEA_GPGLL_LONGITUDE,
 	NMEA_GPGLL_LONGITUDE_CARDINAL,
-	NMEA_GPGLL_TIME
+	NMEA_GPGLL_TIME,
+	NMEA_GPGLL_STATUS
 };
 
 #endif /* INC_NMEA_GPGLL_H */

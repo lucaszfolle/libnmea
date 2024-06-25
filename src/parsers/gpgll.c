@@ -81,6 +81,14 @@ int parse(nmea_parser_s *parser, char *value, int val_index)
 		}
 		break;
 
+	case NMEA_GPGLL_STATUS:
+		/* Parse data valid/invalid status */
+		if ((*value != 'A') && (*value != 'V'))
+			return -1;
+		
+		data->valid = (*value == 'A');
+		break;
+
 	default:
 		break;
 	}
