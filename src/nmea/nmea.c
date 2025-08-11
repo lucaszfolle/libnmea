@@ -4,6 +4,8 @@
 
 #define ARRAY_LENGTH(a) (sizeof a / sizeof (a[0]))
 
+const char *TALKER_IDS[N_TALKER_ID] = {"GN", "GP", "BD", "GL"};
+
 /**
  * Check if a value is not NULL and not empty.
  *
@@ -107,6 +109,22 @@ nmea_get_type(const char *sentence)
 	}
 
 	return parser->parser.type;
+}
+
+talker_id_t
+nmea_get_talker_id(const char *sentence)
+{
+	if (NULL == sentence) {
+		return UNKNOWN_TALKER;
+	}
+	for (int ii = 0; ii < N_TALKER_ID; ++ii)
+	{
+		if (0 == strncmp(sentence + 1, TALKER_IDS[ii], 2))
+		{
+			return (talker_id_t)ii;
+		}
+	}
+	return UNKNOWN_TALKER;
 }
 
 uint8_t
@@ -217,6 +235,7 @@ nmea_parse(char *sentence, size_t length, int check_checksum)
 	char *values[255];
 	nmea_parser_module_s *parser;
 	nmea_t type;
+	talker_id_t talker;
 
 	/* Validate sentence string */
 	if (-1 == nmea_validate(sentence, length, check_checksum)) {
@@ -225,6 +244,11 @@ nmea_parse(char *sentence, size_t length, int check_checksum)
 
 	type = nmea_get_type(sentence);
 	if (NMEA_UNKNOWN == type) {
+		return (nmea_s *) NULL;
+	}
+	
+	talker = nmea_get_talker_id(sentence);
+	if (UNKNOWN_TALKER == talker) {
 		return (nmea_s *) NULL;
 	}
 
@@ -270,6 +294,7 @@ nmea_parse(char *sentence, size_t length, int check_checksum)
 
 	parser->parser.data->type = type;
 	parser->parser.data->errors = parser->errors;
+	parser->parser.data->talker = talker;
 
 	return parser->parser.data;
 }

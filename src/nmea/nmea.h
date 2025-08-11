@@ -20,6 +20,16 @@ typedef enum {
 	NMEA_GPGST
 } nmea_t;
 
+typedef enum
+{
+	GNSS_TALKER_ID,
+	GPS_TALKER_ID,
+	BEIDOU_TALKER_ID,
+	GLONASS_TALKER_ID,
+	N_TALKER_ID,
+	UNKNOWN_TALKER
+} talker_id_t;
+
 /* NMEA cardinal direction types */
 typedef char nmea_cardinal_t;
 #define NMEA_CARDINAL_DIR_NORTH		(nmea_cardinal_t) 'N'
@@ -35,6 +45,7 @@ typedef char nmea_cardinal_t;
  */
 typedef struct {
 	nmea_t type;
+	talker_id_t talker;
 	int errors;
 } nmea_s;
 
@@ -72,6 +83,15 @@ extern "C" {
  * Returns nmea_t (int).
  */
 extern nmea_t nmea_get_type(const char *sentence);
+
+/**
+ * Get the talker id.
+ *
+ * sentence needs to be a validated NMEA sentence string.
+ *
+ * Returns talker_id_t (int).
+ */
+extern talker_id_t nmea_get_talker_id(const char *sentence);
 
 /**
  * Calculate the checksum of the sentence.
