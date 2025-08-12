@@ -24,10 +24,13 @@ int allocate_data(nmea_parser_s *parser)
 int set_default(nmea_parser_s *parser)
 {
 	memset(parser->data, 0, sizeof(nmea_gpgsv_s));
-	((nmea_gpgsv_s *)parser->data)->sat[0].prn = -1;
-	((nmea_gpgsv_s *)parser->data)->sat[1].prn = -1;
-	((nmea_gpgsv_s *)parser->data)->sat[2].prn = -1;
-	((nmea_gpgsv_s *)parser->data)->sat[3].prn = -1;
+	for (int ii = 0; ii < 4; ++ii)
+	{
+		((nmea_gpgsv_s *)parser->data)->sat[ii].prn = -1;
+		((nmea_gpgsv_s *)parser->data)->sat[ii].azimuth = (uint16_t)~0u;
+		((nmea_gpgsv_s *)parser->data)->sat[ii].elevation = (uint8_t)~0u;
+		((nmea_gpgsv_s *)parser->data)->sat[ii].snr = (uint8_t)~0u;
+	}
 
 	return 0;
 }
